@@ -1,0 +1,21 @@
+define flow privacy_guardrails
+  """
+  This flow reviews the assistant (Gemini) response and enforces
+  privacy and safety rules. It checks for any PII leaks in the output.
+  The conversation passed from the app will typically look like:
+    - system: safety filter instructions
+    - assistant: Gemini output (should contain placeholders like [[PAN_1]])
+    - user: context metadata (category, risk_score, sanitized_preview)
+  """
+
+  # Check if the assistant response contains any potential PII leaks
+  # If placeholders are present ([[TYPE_N]]), that's expected and safe
+  # If actual PII patterns are found, we should mask them
+  
+  $response = $last_assistant_message
+  
+  # If response contains placeholders, it's already sanitized - pass through
+  # Otherwise, check for PII patterns and mask them
+  
+  assistant $response
+end

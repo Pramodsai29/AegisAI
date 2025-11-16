@@ -1,0 +1,20 @@
+# NeMo Guardrails configuration for output filtering only.
+# Gemini remains the main LLM; NeMo is used here for rule-based checks / rewrites.
+
+# No models are configured here because we are not asking NeMo to call
+# another LLM. If you later want NeMo to use a separate model for more
+# advanced rewriting, you can define it under `models:`.
+models: []
+
+# Rails definition: we only define an output flow that reviews the
+# assistant's (Gemini) response and optionally rewrites it.
+rails:
+  input:
+    flows: []
+  output:
+    flows:
+      - privacy_guardrails
+
+# Optional: You can define global configuration parameters here.
+config:
+  default_language: "en"
